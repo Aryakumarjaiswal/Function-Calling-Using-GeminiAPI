@@ -1,7 +1,12 @@
 ########################### FUNCTION CALLING WITH NO ARGUMENTS ########################################
 
 import google.generativeai as genai
-genai.configure(api_key="AIzaSyAPwfv0-bN0Bx----07sS4")
+from dotenv import load_dotenv
+
+load_dotenv()
+#create .env file define api key i.e ->GEMINI_API_KEY="geniniapikeyicq2jr09q2r9gj"
+KEY=os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=KEY)
 configuration={
     "temperature":1,
     "top_p":0.95,
@@ -60,7 +65,12 @@ response=chat.send_message("please transfer my call to chat team")
 
 
 import google.generativeai as genai
-genai.configure(api_key="AIzaSyAPwfv0-bN0BxI8L07sS4")
+from dotenv import load_dotenv
+
+load_dotenv()
+#create .env file define api key i.e ->GEMINI_API_KEY="geniniapikeyicq2jr09q2r9gj"
+KEY=os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=KEY))
 configuration={
     "temperature":1,
     "top_p":0.95,
