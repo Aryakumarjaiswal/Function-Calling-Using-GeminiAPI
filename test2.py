@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-#GEMINI_KEY=AIzaSyBZiCglqZIaO4giBTqTMK1PcyutJgTSLfA 
+#GEMINI_KEY=AA 
 KEY= os.getenv("GEMINI_KEY")
 genai.configure(api_key=KEY)
 configuration={
