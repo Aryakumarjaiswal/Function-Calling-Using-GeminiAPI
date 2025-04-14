@@ -61,9 +61,55 @@ response=chat.send_message("please transfer my call to chat team")
 
 ############################################ END ########################################################
 ################################## FUNCTION CALLING WITH ARGUMENTS ######################################
+import google.generativeai as genai
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
+KEY=os.getenv("GEMINI_KEY")
+genai.configure(api_key=KEY)
+configuration={
+    "temperature":1,
+    "top_p":0.95,
+    "top_k":40,
+    "max_output_tokens":8192,
+    "response_mime_type":"text/plain"
+    }
 
+def transfer_to_customer_team(input:str,name:str=None,email:str=None,phone:str=None):
+        
+        """Simulates Extraction of name,email & phone number of user if it exists in input.
+        Arguments:
+        input: str: User's input string.
+        name: str: Extract User's name here.
+        email:str: Extract User's email here.
+        phone:int: Extract User's phone number here.
+ 
+        """
 
+       
+        message = f"Sure {name},email:{email},phone:{phone} I'm transferring your call to the customer service team. Please wait a moment. Call transferred to the customer service team successfully!!!!"
+            
+
+        return message
+model=genai.GenerativeModel(model_name="gemini-1.5-flash",generation_config=configuration,  tools=[transfer_to_customer_team])
+
+chat=model.start_chat()
+ip="Im Dhoni,mobile no:887983454 & conctact me via msd11@gmail.com also please transfer my call to chat team"
+#ip="Hi good morning.how ca you assist me today?"
+
+response=chat.send_message(ip)
+
+for part in response.candidates[0].content.parts:
+
+        if hasattr(part, "function_call") and part.function_call is not None and part.function_call.name == "transfer_to_customer_team":
+                ans=transfer_to_customer_team(ip,part.function_call.args['name'],part.function_call.args['email'],part.function_call.args['phone'])
+                print(ans)
+
+#OUTPUT:
+#Sure Dhoni,email:msd11@gmail.com,phone:887983454 I'm transferring your call to the customer service team. Please wait a moment. Call transferred to the customer service team successfully!!!!
+
+##########################################################################################################
 import google.generativeai as genai
 from dotenv import load_dotenv
 
