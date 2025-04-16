@@ -1,9 +1,2 @@
-fastapi
-uvicorn
-sqlalchemy
-pymysql
-bcrypt
-schedule
 python-dotenv
-pandas
 google-generativeai
